@@ -1,0 +1,54 @@
+@layout.app({title: "Designify - Home"})
+
+@slot('main')
+<main>
+    <section class="hero">
+        <div class="container">
+            <h1 class="hero-title">Transform Your Brand with Professional Design</h1>
+            <p class="hero-description">We create stunning visual identities, logos, and marketing materials that help your business stand out and succeed in today's competitive market.</p>
+            <div class="hero-buttons">
+                <a href="{{ route('services') }}" class="btn btn-primary">View Services</a>
+                <a href="{{ route('portfolio') }}" class="btn btn-secondary">See Our Work</a>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <p class="section-description">We offer professional design services for businesses of all sizes</p>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🎨</div>
+                    <h3 class="service-title">Logo Design</h3>
+                    <p class="service-description">Custom logos that capture your brand essence and make a lasting impression.</p>
+                    <div class="service-price">Starting at $59</div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📱</div>
+                    <h3 class="service-title">Brand Identity</h3>
+                    <p class="service-description">Complete brand packages including color palettes, typography, and guidelines.</p>
+                    <div class="service-price">Starting at $199</div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📄</div>
+                    <h3 class="service-title">Marketing Materials</h3>
+                    <p class="service-description">Brochures, flyers, business cards, and digital marketing assets.</p>
+                    <div class="service-price">Starting at $39</div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="{{ route('services') }}" class="btn btn-primary">View All Services</a>
+            </div>
+        </div>
+    </section>
+    <section class="section cta-section">
+        <div class="container">
+            <h2 class="cta-title">Ready to Get Started?</h2>
+            <p class="cta-description">Let's discuss your project and create something amazing together.</p>
+            <a href="{{ route('contact') }}" class="btn btn-primary">Contact Us Now</a>
+        </div>
+    </section>
+</main>
+@endslot
+
+@end

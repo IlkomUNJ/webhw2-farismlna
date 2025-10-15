@@ -1,0 +1,56 @@
+@layout.app({title: "Designify - Contact"})
+
+@slot('main')
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1 class="page-title">Contact Us</h1>
+                <p class="page-description">Ready to start your design project? Let's discuss your needs</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                    <form class="contact-form" id="contactForm">
+                        <h2 class="form-title">Send Us a Message</h2>
+                        <div class="form-group">
+                            <label for="name" class="form-label">Your Name</label>
+                            <input type="text" id="name" name="name" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" id="email" name="email" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="service" class="form-label">Service Needed</label>
+                            <select id="service" name="service" class="form-select" required>
+                                <option value="">Choose a service</option>
+                                <option value="logo">Logo Design</option>
+                                <option value="branding">Brand Identity</option>
+                                <option value="marketing">Marketing Materials</option>
+                                <option value="web">Web Graphics</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="budget" class="form-label">Budget Range</label>
+                            <select id="budget" name="budget" class="form-select">
+                                <option value="">Select budget</option>
+                                <option value="under-100">Under $100</option>
+                                <option value="100-300">$100 - $300</option>
+                                <option value="300-500">$300 - $500</option>
+                                <option value="over-500">Over $500</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message" class="form-label">Project Details</label>
+                            <textarea id="message" name="message" class="form-textarea" placeholder="Tell us about your project..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+            </div>
+        </section>
+    </main>
+@endslot
+
+@end

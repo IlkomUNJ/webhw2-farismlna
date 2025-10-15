@@ -1,0 +1,14 @@
+<header class="header">
+    <nav class="nav container">
+        <a href="{{ route('home') }}" class="logo">Designify</a>
+        <ul class="nav-menu">
+            <li><a href="{{ route('home') }}" class="{{ request.matchesRoute("home") ? "nav-link active" : "nav-link" }}">Home</a></li>
+            <li><a href="{{ route('services') }}" class="{{ request.matchesRoute("services") ? "nav-link active" : "" }} nav-link">Services</a></li>
+            <li><a href="{{ route('about') }}" class="{{ request.matchesRoute("about") ? "nav-link active" : "" }} nav-link">About</a></li>
+            <li><a href="{{ route('portfolio') }}" class="{{ request.matchesRoute("portfolio") ? "nav-link active" : "" }} nav-link">Portfolio</a></li>
+            <li><a href="{{ route('contact') }}" class="{{ request.matchesRoute("contact") ? "nav-link active" : "" }} nav-link">Contact</a></li>
+            <li><a href="{{ route('favorite') }}" class="{{ request.matchesRoute("favorite") ? "nav-link active" : "" }} nav-link">Favorite</a></li>
+        </ul>
+        <button class="nav-toggle">☰</button>
+    </nav>
+ </header>

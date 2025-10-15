@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ title || "Designify" }}</title>
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+  @if ($slots.meta)
+  {{{ await $slots.meta() }}}
+  @endif
+</head>
+
+<body>
+  @include('partials/header')
+  {{{ await $slots.main() }}}
+  @include('partials/footer')
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+@layout.app({title: "Designify - Favorite"})
+
+@slot('main')
+<main>
+<section class="page-header">
+    <div class="container">
+        <h1 class="page-title">Your Favorite Services</h1>
+        <p class="page-description">Check out some of your favorite services</p>
+    </div>
+</section>
+<section class="section">
+    <div class="container">
+        <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🎨</div>
+                    <h3 class="service-title">Logo Design</h3>
+                    <p class="service-description">Get a custom logo that represents your brand perfectly. We create unique designs that make your business stand out.</p>
+                    {{-- <div class="service-price">Starting at $59</div> --}}
+                    <br>
+                    <a href="" class="btn btn-primary">Remove</a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📱</div>
+                    <h3 class="service-title">Brand Identity</h3>
+                    <p class="service-description">Complete brand package including logo, colors, fonts, and business cards. Everything you need for your brand.</p>
+                    {{-- <div class="service-price">Starting at $199</div> --}}
+                    <br>
+                    <a href="" class="btn btn-primary">Remove</a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📄</div>
+                    <h3 class="service-title">Marketing Materials</h3>
+                    <p class="service-description">Flyers, brochures, business cards, and other marketing materials to promote your business effectively.</p>
+                    {{-- <div class="service-price">Starting at $39</div> --}}
+                    <br>
+                    <a href="" class="btn btn-primary">Remove</a>
+                </div>
+            </div>
+    </div>
+</section>
+<section class="section cta-section">
+    <div class="container">
+        <h2 class="cta-title">Ready to Start Your Project?</h2>
+        <p class="cta-description">Let's create something amazing together. Get in touch to discuss your design needs.</p>
+        <a href="{{ route('contact') }}" class="btn btn-primary">Get Started Today</a>
+    </div>
+</section>
+</main>
+@endslot
+
+@end

@@ -1,0 +1,51 @@
+@layout.app({title: "Designify - Home"})
+
+@slot('main')
+<main>
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">Our Portfolio</h1>
+            <p class="page-description">Check out some of our recent projects</p>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <div class="portfolio-grid">
+                <div class="portfolio-item" data-category="logo">
+                    <img src="resources/images/techstart.png" alt="Logo Design Project">
+                    <div class="portfolio-info">
+                        <h3 class="portfolio-title">TechStart Logo</h3>
+                        <p class="portfolio-category">Logo Design</p>
+                        <p class="portfolio-description">Complete brand identity for a technology startup, including logo design, color palette, and brand guidelines.</p>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-category="branding">
+                    <img src="resources/images/coffe-shop.png" alt="Brand Identity Project">
+                    <div class="portfolio-info">
+                        <h3 class="portfolio-title">Coffee Shop Brand</h3>
+                        <p class="portfolio-category">Brand Identity</p>
+                        <p class="portfolio-description">Marketing campaign including flyers, menu design, and social media templates for a local coffee shop.</p>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-category="marketing">
+                    <img src="resources/images/flyers.jpg" alt="Marketing Materials">
+                    <div class="portfolio-info">
+                        <h3 class="portfolio-title">Restaurant Flyers</h3>
+                        <p class="portfolio-category">Marketing Materials</p>
+                        <p class="portfolio-description">Promotional campaign including flyers, menu layouts, and marketing templates designed to showcase and advertise a restaurant.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section cta-section">
+        <div class="container">
+            <h2 class="cta-title">Ready to Start Your Project?</h2>
+            <p class="cta-description">Let's create something amazing together. Get in touch to discuss your design needs.</p>
+            <a href="{{ route('contact') }}" class="btn btn-primary">Get Started Today</a>
+        </div>
+    </section>
+    </main>
+@endslot
+
+@end
