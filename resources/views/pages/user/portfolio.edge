@@ -1,48 +1,46 @@
-@layout.app({title: "Designify - Home"})
+@layout.app({title: "Designify - Portfolio"})
 
 @slot('main')
 <main>
+    {{-- {{ JSON.stringify(portfolios[0]) }} --}}
     <section class="page-header">
         <div class="container">
             <h1 class="page-title">Our Portfolio</h1>
             <p class="page-description">Check out some of our recent projects</p>
         </div>
     </section>
+     <section class="portfolio-filters">
+        <div class="container">
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="logo">Logo Design</button>
+                <button class="filter-btn" data-filter="branding">Brand Identity</button>
+                <button class="filter-btn" data-filter="marketing">Marketing</button>
+                <button class="filter-btn" data-filter="digital">Digital Design</button>
+            </div>
+        </div>
+    </section>
     <section class="section">
         <div class="container">
             <div class="portfolio-grid">
-                <div class="portfolio-item" data-category="logo">
-                    <img src="resources/images/techstart.png" alt="Logo Design Project">
-                    <div class="portfolio-info">
-                        <h3 class="portfolio-title">TechStart Logo</h3>
-                        <p class="portfolio-category">Logo Design</p>
-                        <p class="portfolio-description">Complete brand identity for a technology startup, including logo design, color palette, and brand guidelines.</p>
+                @each(item in portfolios)
+                    <div class="portfolio-item" data-category="logo">
+                        <img src="{{ item.imageUrl }}" alt="{{ item.title }}">
+                        <div class="portfolio-info">
+                            <h3 class="portfolio-title">{{ item.title }}</h3>
+                            <p class="portfolio-category">{{ item.service.name }}</p>
+                            <p class="portfolio-description">{{ item.description }}</p>
+                        </div>
                     </div>
-                </div>
-                <div class="portfolio-item" data-category="branding">
-                    <img src="resources/images/coffe-shop.png" alt="Brand Identity Project">
-                    <div class="portfolio-info">
-                        <h3 class="portfolio-title">Coffee Shop Brand</h3>
-                        <p class="portfolio-category">Brand Identity</p>
-                        <p class="portfolio-description">Marketing campaign including flyers, menu design, and social media templates for a local coffee shop.</p>
-                    </div>
-                </div>
-                <div class="portfolio-item" data-category="marketing">
-                    <img src="resources/images/flyers.jpg" alt="Marketing Materials">
-                    <div class="portfolio-info">
-                        <h3 class="portfolio-title">Restaurant Flyers</h3>
-                        <p class="portfolio-category">Marketing Materials</p>
-                        <p class="portfolio-description">Promotional campaign including flyers, menu layouts, and marketing templates designed to showcase and advertise a restaurant.</p>
-                    </div>
-                </div>
+                @end
             </div>
         </div>
     </section>
     <section class="section cta-section">
         <div class="container">
-            <h2 class="cta-title">Ready to Start Your Project?</h2>
+            <h2 class="cta-title">Like What You See?</h2>
             <p class="cta-description">Let's create something amazing together. Get in touch to discuss your design needs.</p>
-            <a href="{{ route('contact') }}" class="btn btn-primary">Get Started Today</a>
+            <a href="{{ route('contact') }}" class="btn btn-primary">Start Your Project</a>
         </div>
     </section>
     </main>

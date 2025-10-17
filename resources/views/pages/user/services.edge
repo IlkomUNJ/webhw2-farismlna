@@ -2,48 +2,103 @@
 
 @slot('main')
 <main>
+    {{-- {{ JSON.stringify(services[0]) }} --}}
     <section class="page-header">
         <div class="container">
             <h1 class="page-title">Our Services</h1>
             <p class="page-description">Comprehensive design solutions to grow your business</p>
         </div>
     </section>
-    <section class="section">
+    <section class="section" style="padding: 30px;">
         <div class="container">
+            <div class="search-bar" ud  style="margin-bottom: 30px; text-align: center;">
+                <form method="GET" action="{{ route('services') }}" class="search-form">
+                    <input type="text" name="search" value="{{ search || '' }}" id="service-search" placeholder="Search services..." style="padding: 10px 15px; width: 60%; max-width: 400px; border: 1px solid #ccc; border-radius: 6px;">
+                    <button id="search-btn" type="submit" class="btn btn-primary" style="padding: 10px 20px;">Search</button>
+                </form>
+            </div>
             <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">🎨</div>
-                    <h3 class="service-title">Logo Design</h3>
-                    <p class="service-description">Get a custom logo that represents your brand perfectly. We create unique designs that make your business stand out.</p>
-                    <div class="service-price">Starting at $59</div>
-                    <br>
-                    <div class="">
-                        <a href="{{ route('contact') }}" class="btn btn-primary">Order Now</a>
-                        <a href="" class="btn btn-primary">Wishlist</a>
+                @each(item in services)
+                    <div class="service-card" data-id="{{ item.id }}" data-name="{{ item.name }}">
+                    <img src="{{ item.imageUrl }}" alt="{{ item.name }}">
+                    <h3 class="service-title">{{ item.name }}</h3>
+                    <p class="service-description">{{ item.description }}</p>
+                    <div class="service-price">Starting at ${{ item.price }}</div>
+                    <div class="service-actions">
+                        <button href="{{ route('contact') }}" class="btn btn-primary">Order Now</button>
+                        <button 
+                            class="btn btn-secondary btn-wishlist"
+                            data-id="{{ item.id }}"
+                            data-name="{{ item.name }}"
+                            data-description="{{ item.description }}"
+                            data-price="{{ item.price }}"
+                            data-image="{{ item.imageUrl }}">
+                            Wishlist
+                        </button>
                     </div>
+                    </div>
+                @end
+            </div>
+        </div>
+    </section>
+     {{-- <section class="section" style="background-color: #f8f9fa;">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <div class="services-grid">
+                <div style="text-align: center;">
+                    <h3 style="color: #3498db; font-size: 48px; margin-bottom: 20px;">1</h3>
+                    <h4>Tell Us What You Need</h4>
+                    <p>Contact us with your project details and requirements. We'll discuss your vision and goals.</p>
                 </div>
-                <div class="service-card">
-                    <div class="service-icon">📱</div>
-                    <h3 class="service-title">Brand Identity</h3>
-                    <p class="service-description">Complete brand package including logo, colors, fonts, and business cards. Everything you need for your brand.</p>
-                    <div class="service-price">Starting at $199</div>
-                    <br>
-                    <a href="{{ route('contact') }}" class="btn btn-primary">Order Now</a>
-                    <a href="" class="btn btn-primary">Wishlist</a>
+                <div style="text-align: center;">
+                    <h3 style="color: #3498db; font-size: 48px; margin-bottom: 20px;">2</h3>
+                    <h4>We Create Your Design</h4>
+                    <p>Our designers work on your project and create initial concepts for your review.</p>
                 </div>
-                <div class="service-card">
-                    <div class="service-icon">📄</div>
-                    <h3 class="service-title">Marketing Materials</h3>
-                    <p class="service-description">Flyers, brochures, business cards, and other marketing materials to promote your business effectively.</p>
-                    <div class="service-price">Starting at $39</div>
-                    <br>
-                    <a href="{{ route('contact') }}" class="btn btn-primary">Order Now</a>
-                    <a href="" class="btn btn-primary">Wishlist</a>
+                <div style="text-align: center;">
+                    <h3 style="color: #3498db; font-size: 48px; margin-bottom: 20px;">3</h3>
+                    <h4>Get Your Final Files</h4>
+                    <p>After revisions, we deliver your final design files in all the formats you need.</p>
+                </div>
+            </div>
+        </div>
+    </section> --}}
+
+    <section class="process-section">
+        <div class="container">
+            <header class="section-header">
+                <h2 class="section-title">Our Design Process</h2>
+                <p class="section-description" style="margin-bottom: 20px;">A proven approach that delivers exceptional results</p>
+            </header>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">Discovery</h3>
+                    <p class="step-description">We learn about your business, goals, and target audience to inform our design strategy.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">Concept</h3>
+                    <p class="step-description">Our designers create initial concepts based on your brand requirements and preferences.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">Refinement</h3>
+                    <p class="step-description">We refine the chosen concept through collaboration and feedback until it's perfect.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <h3 class="step-title">Delivery</h3>
+                    <p class="step-description">Final files are delivered in all necessary formats along with usage guidelines.</p>
                 </div>
             </div>
         </div>
     </section>
 </main>
+
+<script>
+  window.servicesData = {{ services | safe }}
+</script>
 @endslot
 
 @end
