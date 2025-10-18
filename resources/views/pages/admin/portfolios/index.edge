@@ -1,0 +1,62 @@
+@layout.admin({ title: 'Manage Portfolios Data' })
+
+@slot('main')
+<div class="max-w-6xl mx-auto">
+  <!-- Header -->
+  <div class="flex items-center justify-between mb-6">
+      <div>
+          <h1 class="text-2xl font-semibold text-gray-800">Manage Portfolios</h1>
+          <p class="text-gray-500">Here you can manage all available portfolios design.</p>
+      </div>
+      <a href="{{ route('admin.portfolios.create') }}" 
+          class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white font-medium rounded-lg shadow hover:bg-blue-700 transition focus:ring-2 focus:ring-blue-400">
+          <span class="text-lg font-bold">＋</span> Add Portfolio
+      </a>
+  </div>
+
+  <!-- Table Card -->
+  <div class="bg-white shadow-sm rounded-xl overflow-hidden border border-gray-200">
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">#</th>
+          <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Name</th>
+          <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Description</th>
+          <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Service</th>
+          <th class="px-6 py-3 text-right text-sm font-semibold text-gray-700">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-200">
+        @each(portfolio in sortedPortfolios)
+        <tr class="hover:bg-blue-50 odd:bg-white even:bg-gray-50 transition-colors duration-150">
+          <td class="px-6 py-3 text-sm text-gray-700">{{ portfolio.id }}</td>
+          <td class="px-6 py-3 text-sm font-medium text-gray-800">{{ portfolio.title }}</td>
+          <td class="px-6 py-3 text-sm text-gray-700">{{ portfolio.description }}</td>
+          <td class="px-6 py-3 text-sm text-gray-700">{{ portfolio.service }}</td>
+          <td class="px-6 py-3 text-right space-x-3">
+            <a href="{{ route('admin.portfolios.edit', { id: portfolio.id }) }}" 
+                class="text-blue-600 hover:text-blue-800 text-sm font-medium">Edit</a>
+
+            <form action="{{ route('admin.portfolios.destroy', { id: portfolio.id }) }}" method="POST" class="inline-block"
+              onsubmit="return confirm('Are you sure you want to delete this service: {{ portfolio.name }}?')">
+              <button type="submit" class="text-red-600 hover:text-red-800 text-sm font-medium bg-transparent border-none p-0 cursor-pointer">
+              Delete
+              </button>
+            </form>
+          </td>
+        </tr>
+        @endeach
+
+        @if(sortedPortfolios.length === 0)
+        <tr>
+          <td colspan="4" class="px-6 py-6 text-center text-gray-500">
+            No portfolios found.
+          </td>
+        </tr>
+        @endif
+      </tbody>
+    </table>
+  </div>
+</div>
+@endslot
+@end

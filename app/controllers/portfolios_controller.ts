@@ -18,16 +18,46 @@ export default class PortfoliosController {
     }
 
     public async indexAdmin({ view }: HttpContext) {
-        const portfolio = await Portfolio.all()
-        return view.render('pages/admin/portfolios/index', { portfolio })
+        const portfolios = await Portfolio.all()
+        const sortedPortfolios = portfolios.sort((a, b) => a.id - b.id)
+        return view.render('pages/admin/portfolios/index', { sortedPortfolios })
     }
 
     public async create({ view }: HttpContext) {
         return view.render('pages/admin/portfolios/create')
     }
+
+    public async store({ request, response, session }: HttpContext) {
+        const data = request.only(['title', 'description', 'image_url', 'service_id'])
+        console.log('Service data:', data) // Tambahkan ini untuk lihat data di terminal
+        
+        await Service.create(data)
+        session.flash('success', 'Service created successfully.')
+        return response.redirect().toRoute('admin.services.index')
+    }
         
     public async edit({ view, params }: HttpContext) {
         const portfolio = await Portfolio.findOrFail(params.id)
         return view.render('pages/admin/portfolios/edit', { portfolio })
+    }
+
+    public async update({ request, params, response, session }: HttpContext) {
+        const portfolio = await Portfolio.findOrFail(params.id)
+
+        const data = request.only(['title', 'description', 'image_url', 'service_id'])
+
+        portfolio.merge(data)
+        await portfolio.save()
+
+        session.flash('success', 'Service updated successfully.')
+        return response.redirect().toRoute('admin.services.index')
+    }
+
+    public async destroy({ params, response, session }: HttpContext) {
+        const portfolio = await Portfolio.findOrFail(params.id)
+        await portfolio.delete()
+
+        session.flash('success', 'Service deleted successfully.')
+        return response.redirect().toRoute('admin.services.index')
     }
 }

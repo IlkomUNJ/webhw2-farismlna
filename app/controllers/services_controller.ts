@@ -35,6 +35,7 @@ export default class ServicesController {
 
     public async store({ request, response, session }: HttpContext) {
         const data = request.only(['name', 'description', 'price', 'image_url', 'category'])
+        console.log('Service data:', data) // Tambahkan ini untuk lihat data di terminal
         
         await Service.create(data)
         session.flash('success', 'Service created successfully.')
@@ -46,4 +47,23 @@ export default class ServicesController {
         return view.render('pages/admin/services/edit', { service })
     }
 
+    public async update({ request, params, response, session }: HttpContext) {
+        const service = await Service.findOrFail(params.id)
+
+        const data = request.only(['name', 'description', 'price', 'image_url', 'category'])
+
+        service.merge(data)
+        await service.save()
+
+        session.flash('success', 'Service updated successfully.')
+        return response.redirect().toRoute('admin.services.index')
+    }
+
+    public async destroy({ params, response, session }: HttpContext) {
+        const service = await Service.findOrFail(params.id)
+        await service.delete()
+
+        session.flash('success', 'Service deleted successfully.')
+        return response.redirect().toRoute('admin.services.index')
+    }
 }
