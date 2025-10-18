@@ -2,49 +2,56 @@
 
 @slot('main')
 <main class="min-h-screen bg-gray-100 py-10 px-4">
-  <div class="max-w-3xl mx-auto bg-white shadow-sm rounded-xl p-8 border border-gray-200">
-    <h1 class="text-2xl font-semibold text-gray-800 mb-6">Edit Portfolio</h1>
+    <div class="max-w-3xl mx-auto bg-white shadow-sm rounded-xl p-8 border border-gray-200">
+        <h1 class="text-2xl font-semibold text-gray-800 mb-6">Edit Portfolio</h1>
 
-    <form action="{{ route('admin.portfolios.update', { id: portfolio.id }) }}" method="POST" class="space-y-6">
-      <!-- Name -->
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">Title</label>
-        <input type="text" name="title" value="{{ portfolio.title }}" required
-          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none" />
-      </div>
+        {{-- Route action ke update portfolio --}}
+        <form action="{{ route('admin.portfolios.update', { id: portfolio.id }) }}" method="POST" class="space-y-6">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Title</label>
+                <input type="text" name="title" value="{{ portfolio.title }}" required
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none" />
+            </div>
 
-      <!-- Description -->
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
-        <textarea name="description" rows="4" required
-          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none">{{ portfolio.description }}</textarea>
-      </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                <textarea name="description" rows="4" required
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none">{{ portfolio.description }}</textarea>
+            </div>
 
-      <!-- Image URL -->
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">Image URL</label>
-        <input type="text" name="imageUrl" value="{{ portfolio.imageUrl }}"
-          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
-          placeholder="https://example.com/image.jpg" />
-      </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Image URL</label>
+                <input type="text" name="imageUrl" value="{{ portfolio.imageUrl }}"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                    placeholder="https://example.com/image.jpg" />
+            </div>
 
-      <!-- Category -->
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">Service</label>
-        <input type="text" name="service" value="{{ portfolio.service }}"
-          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
-          placeholder="e.g. Web Design, SEO, Marketing" />
-      </div>
+            <div>
+                <label for="service_id" class="block text-sm font-medium text-gray-700 mb-1">Service Category</label>
+                <select id="service_id" name="service_id" required
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none">
+                    
+                    <option value="">-- Select a Service --</option>
+                    
+                    {{-- Loop data services, dan tandai yang sedang digunakan --}}
+                    @each(service in services)
+                        <option value="{{ service.id }}" 
+                            {{ service.id === portfolio.serviceId ? 'selected' : '' }}>
+                            {{ service.name }}
+                        </option>
+                    @endeach
+                </select>
+            </div>
 
-      <!-- Action buttons -->
-      <div class="flex justify-end gap-3">
-        <a href="{{ route('admin.portfolios.index') }}"
-          class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">Cancel</a>
-        <button type="submit"
-          class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Update</button>
-      </div>
-    </form>
-  </div>
+            <div class="flex justify-end gap-3">
+                {{-- Route cancel ke index portfolio --}}
+                <a href="{{ route('admin.portfolios.index') }}"
+                    class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">Cancel</a>
+                <button type="submit"
+                    class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Update Portfolio</button>
+            </div>
+        </form>
+    </div>
 </main>
 @endslot
 @end

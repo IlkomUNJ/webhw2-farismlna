@@ -3,41 +3,46 @@ import Service from '#models/service'
 import type { HttpContext } from '@adonisjs/core/http'
 
 export default class FavoritesController {
-    public async index({ view } : HttpContext) {
-        const services = await Service.all()
-        return view.render('pages/user/favorite', { services })
-    }
+//     public async index({ view }: HttpContext) {
+//     const wishlists = await Favorite.query().preload('service')
+//     return view.render('pages/admin/wishlist/index', { wishlists })
+//   }
 
-    public async indexAdmin({ view }: HttpContext) {
-        const wishlist = await Favorite.all()
-        return view.render('pages/admin/wishlist/index', { wishlist })
-    }
+//   public async store({ request, response }: HttpContext) {
+//     const { guest_id, service_id } = request.only(['guest_id', 'service_id'])
 
-    public async show({ view, params } : HttpContext) {
-        const service = await Service.findOrFail(params.id)
-        return view.render('pages/service_detail', { service })
-    }
+//     // toggle wishlist
+//     const existing = await Favorite.query()
+//       .where('guest_id', guest_id)
+//       .andWhere('service_id', service_id)
+//       .first()
 
-    public async add({auth, params, response} : HttpContext) {
-        const user = auth.user
-        const serviceId = params.serviceId
-        
-        // Check if the service exists
-        const serviceExist = await Service.query().where('user_id', user!.id).andWhere('id', serviceId).first()
+//     if (existing) {
+//       await existing.delete()
+//       return response.json({ status: 'removed' })
+//     } else {
+//       await Favorite.create({ guestId: guest_id, serviceId: service_id })
+//       return response.json({ status: 'added' })
+//     }
+//   }
 
-        if (!serviceExist) {
-            await Favorite.create({ userId: user!.id, serviceId })
+    public async toggle({ request, response }: HttpContext) {
+        const { guest_id, service_id } = request.only(['guest_id', 'service_id'])
+        if (!guest_id || !service_id) return response.badRequest({ message: 'Missing data' })
+
+        const existing = await Favorite.query().where({ guest_id, service_id }).first()
+
+        if (existing) {
+            await existing.delete()
+            return response.json({ status: 'removed' })
+        } else {
+            await Favorite.create({ guestId: guest_id, serviceId: service_id })
+            return response.json({ status: 'added' })
         }
-
-        return response.redirect().back()
     }
 
-    public async remove({auth, params, response} : HttpContext) {
-        const user = auth.user
-        const serviceId = params.serviceId
-        
-        await Favorite.query().where('user_id', user!.id).andWhere('service_id', serviceId).delete()
-
-        return response.redirect().back()
-    }
+  public async indexAdmin({ view }: HttpContext) {
+    const wishlists = await Favorite.query().preload('service')
+    return view.render('pages/admin/wishlist/index', { wishlists })
+  }
 }

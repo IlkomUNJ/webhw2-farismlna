@@ -22,17 +22,17 @@
           <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">#</th>
           <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Name</th>
           <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Description</th>
-          <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Service</th>
+          <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Service Name</th>
           <th class="px-6 py-3 text-right text-sm font-semibold text-gray-700">Actions</th>
         </tr>
       </thead>
       <tbody class="divide-y divide-gray-200">
-        @each(portfolio in sortedPortfolios)
+        @each((portfolio, index) in sortedPortfolios)
         <tr class="hover:bg-blue-50 odd:bg-white even:bg-gray-50 transition-colors duration-150">
-          <td class="px-6 py-3 text-sm text-gray-700">{{ portfolio.id }}</td>
+          <td class="px-6 py-3 text-sm text-gray-700">{{ index + 1 }}</td>
           <td class="px-6 py-3 text-sm font-medium text-gray-800">{{ portfolio.title }}</td>
           <td class="px-6 py-3 text-sm text-gray-700">{{ portfolio.description }}</td>
-          <td class="px-6 py-3 text-sm text-gray-700">{{ portfolio.service }}</td>
+          <td class="px-6 py-3 text-sm text-gray-700">{{ portfolio.service.name }}</td>
           <td class="px-6 py-3 text-right space-x-3">
             <a href="{{ route('admin.portfolios.edit', { id: portfolio.id }) }}" 
                 class="text-blue-600 hover:text-blue-800 text-sm font-medium">Edit</a>

@@ -112,6 +112,22 @@ function setupClearWishlistButton() {
   })
 }
 
+let guestId = localStorage.getItem('guest_id')
+if (!guestId) {
+  guestId = crypto.randomUUID()
+  localStorage.setItem('guest_id', guestId)
+}
+
+async function toggleWishlist(serviceId) {
+  const res = await fetch('/wishlist', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ guest_id: guestId, service_id: serviceId })
+  })
+  const result = await res.json()
+  console.log(result)
+}
+
 // Jalankan semua saat halaman siap
 document.addEventListener('DOMContentLoaded', () => {
     cleanWishlist()
@@ -119,4 +135,5 @@ document.addEventListener('DOMContentLoaded', () => {
     renderWishlistPage()
     setupClearWishlistButton()
     updateWishlistCount()
+    toggleWishlist()
 });

@@ -32,7 +32,10 @@
                             data-name="{{ item.name }}"
                             data-description="{{ item.description }}"
                             data-price="{{ item.price }}"
-                            data-image="{{ item.imageUrl }}">
+                            data-image="{{ item.imageUrl }}"
+                            onclick="toggleWishlist({{ item.id }})"
+                            class="text-red-600 hover:text-red-800"
+                            >
                             Wishlist
                         </button>
                     </div>
@@ -97,7 +100,24 @@
 </main>
 
 <script>
-  window.servicesData = {{ services | safe }}
+     window.servicesData = {{ services | safe }}
+
+    let guestId = localStorage.getItem('guest_id')
+    if (!guestId) {
+    guestId = crypto.randomUUID()
+    localStorage.setItem('guest_id', guestId)
+    }
+
+    async function toggleWishlist(serviceId) {
+    const res = await fetch('/wishlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ guest_id: guestId, service_id: serviceId })
+    })
+    const result = await res.json()
+    console.log(result)
+    alert(result.status === 'added' ? 'Added to wishlist!' : 'Removed from wishlist!')
+    }
 </script>
 @endslot
 

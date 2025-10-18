@@ -3,7 +3,6 @@ import { BaseModel, column, belongsTo } from '@adonisjs/lucid/orm'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 import Service from './service.js'
 
-
 export default class Portfolio extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
@@ -14,7 +13,7 @@ export default class Portfolio extends BaseModel {
   @column()
   declare description: string
 
-  @column()
+  @column({ columnName: 'image_url' })
   declare imageUrl: string
 
   @column()

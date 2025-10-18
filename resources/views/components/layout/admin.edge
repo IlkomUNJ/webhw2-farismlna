@@ -16,10 +16,11 @@
       <!-- Header -->
       <header class="bg-white border-b border-gray-200 px-8 py-4 flex items-center justify-between">
         <h2 class="text-xl font-semibold text-gray-800">{{ title }}</h2>
-        <a href="/logout" 
-           class="text-sm font-medium text-red-600 hover:text-red-700 transition">
-          Logout
-        </a>
+        <form action="{{ route('admin.logout') }}" method="POST">
+          <button type="submit" class="text-sm font-medium text-red-600 hover:text-red-700 transition">
+            Logout
+          </button>
+        </form>
       </header>
 
       <!-- Flash Messages -->

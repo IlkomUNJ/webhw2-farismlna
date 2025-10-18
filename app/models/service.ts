@@ -17,7 +17,7 @@ export default class Service extends BaseModel {
   @column()
   declare price: number
   
-  @column()
+  @column({ columnName: 'image_url' })
   declare imageUrl: string | null
   
   @column()

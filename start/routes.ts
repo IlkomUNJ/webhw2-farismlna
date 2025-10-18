@@ -8,23 +8,25 @@
 */
 
 import router from '@adonisjs/core/services/router'
+import { middleware } from '#start/kernel'
 
 const ServicesController = () => import('#controllers/services_controller')
 const FavoritesController = () => import('#controllers/favorites_controller')
 const PortfolioController = () => import('#controllers/portfolios_controller')
 const DashboardController = () => import('#controllers/dashboard_controller')
+const AuthController = () => import('#controllers/auth_controller')
 
-router.on('/login').render('pages/login').as('login')
+router.get('/admin/login', [AuthController, 'showLogin']).as('admin.login')
+router.post('/admin/login', [AuthController, 'login']).as('admin.login.post')
+router.post('/admin/logout', [AuthController, 'logout']).as('admin.logout')
 
 router.group(() => {
     router.on('/').render('pages/user/home').as('home')
     router.get('/services', [ServicesController, 'index']).as('services')
     router.get('/portfolios', [PortfolioController, 'index']).as('portfolios')
     router.on('/contact').render('pages/user/contact').as('contact')
-    router.get('/favorite', [FavoritesController, 'index']).as('favorite')
+    router.on('/favorite').render('pages/user/favorite').as('favorite')
 })
-
-// router.on('/favorite').render('pages/user/favorite').as('favorite')
 
 router.group(() => {
     router.get('/dashboard', [DashboardController, 'index']).as('admin.dashboard')
@@ -45,7 +47,7 @@ router.group(() => {
     router.post('/portfolios/:id', [PortfolioController, 'update']).as('admin.portfolios.update')
     router.post('/portfolios/:id/delete', [PortfolioController, 'destroy']).as('admin.portfolios.destroy')
 
-    // Favorites Routes
-    router.get('/wishlist', [FavoritesController, 'indexAdmin']).as('admin.wishlist.index')
-}).prefix('/admin')
+}).prefix('/admin').middleware([middleware.adminAuth()])
 
+router.post('/wishlist', [FavoritesController, 'toggle']).as('wishlist.toggle')
+router.get('/admin/wishlists', [FavoritesController, 'indexAdmin']).as('admin.wishlist.index')

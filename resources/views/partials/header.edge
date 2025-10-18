@@ -7,7 +7,6 @@
             <li><a href="{{ route('portfolios') }}" class="{{ request.matchesRoute("portfolios") ? "nav-link active" : "" }} nav-link">Portfolio</a></li>
             <li><a href="{{ route('contact') }}" class="{{ request.matchesRoute("contact") ? "nav-link active" : "" }} nav-link">Contact</a></li>
             <li><a href="{{ route('favorite') }}" class="{{ request.matchesRoute("favorite") ? "nav-link active" : "" }} nav-link">Wishlist (<span id="wishlist-count">0</span>)</a></li>
-            <li><a href="{{ route('login') }}" class="{{ request.matchesRoute("login") ? "nav-link active" : "" }} nav-link">Sign In</a></li>
         </ul>
         <button class="nav-toggle">☰</button>
     </nav>

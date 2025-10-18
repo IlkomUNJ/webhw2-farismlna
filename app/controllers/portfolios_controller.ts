@@ -18,27 +18,27 @@ export default class PortfoliosController {
     }
 
     public async indexAdmin({ view }: HttpContext) {
-        const portfolios = await Portfolio.all()
-        const sortedPortfolios = portfolios.sort((a, b) => a.id - b.id)
+        const sortedPortfolios = await Portfolio.query().preload('service').orderBy('id', 'asc')
         return view.render('pages/admin/portfolios/index', { sortedPortfolios })
     }
 
     public async create({ view }: HttpContext) {
-        return view.render('pages/admin/portfolios/create')
+        const services = await Service.query().orderBy('id', 'asc')
+        return view.render('pages/admin/portfolios/create', { services })
     }
 
     public async store({ request, response, session }: HttpContext) {
         const data = request.only(['title', 'description', 'image_url', 'service_id'])
-        console.log('Service data:', data) // Tambahkan ini untuk lihat data di terminal
         
-        await Service.create(data)
-        session.flash('success', 'Service created successfully.')
-        return response.redirect().toRoute('admin.services.index')
+        await Portfolio.create(data)
+        session.flash('success', 'Portfolio created successfully.')
+        return response.redirect().toRoute('admin.portfolios.index')
     }
         
     public async edit({ view, params }: HttpContext) {
         const portfolio = await Portfolio.findOrFail(params.id)
-        return view.render('pages/admin/portfolios/edit', { portfolio })
+        const services = await Service.query().orderBy('id', 'asc')
+        return view.render('pages/admin/portfolios/edit', { portfolio, services})
     }
 
     public async update({ request, params, response, session }: HttpContext) {
@@ -49,15 +49,15 @@ export default class PortfoliosController {
         portfolio.merge(data)
         await portfolio.save()
 
-        session.flash('success', 'Service updated successfully.')
-        return response.redirect().toRoute('admin.services.index')
+        session.flash('success', 'Portfolio updated successfully.')
+        return response.redirect().toRoute('admin.portfolios.index')
     }
 
     public async destroy({ params, response, session }: HttpContext) {
         const portfolio = await Portfolio.findOrFail(params.id)
         await portfolio.delete()
 
-        session.flash('success', 'Service deleted successfully.')
-        return response.redirect().toRoute('admin.services.index')
+        session.flash('success', 'Portfolio deleted successfully.')
+        return response.redirect().toRoute('admin.portfolios.index')
     }
 }
